@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { obtenerDiferenciaYear, calcularMarca, obtenerPlan } from '../helper'
+import PropTypes from 'prop-types';
 
 const Campo = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ const Error = styled.div`
   margin-bottom: 2rem;
 `
 
-const Formulario = ({ guardarResumen }) => {
+const Formulario = ({ guardarResumen, guardarCargando }) => {
   //Aqui usare el State para los diferentes campos del formulario
   const [datos, guardarDatos] = useState({
     marca: '',
@@ -99,11 +100,18 @@ const Formulario = ({ guardarResumen }) => {
     const incrementoPlan = obtenerPlan(plan)
     resultado = parseFloat(resultado * incrementoPlan).toFixed(2)
 
-    //Luego por fin dará el resultado TOTAL:
-    guardarResumen({
-      cotizacion: resultado,
-      datos: datos
-    })
+    //Esto es para que se muestre el Spinner
+    guardarCargando(true)
+    //Uso el setTimeout para que luego de 3 segundos desaparezca el Spinner y muestre el resultado
+    setTimeout(() => {
+      //Elimino el Spinner
+      guardarCargando(false)
+      //Luego por fin dará el resultado TOTAL (paso la informacion al componente principal):
+      guardarResumen({
+        cotizacion: Number(resultado),
+        datos: datos
+      })
+    }, 3000)
   }
 
   return (
@@ -160,6 +168,11 @@ const Formulario = ({ guardarResumen }) => {
       <Boton type='submit'>Cotizar</Boton>
     </form>
   )
+}
+
+Formulario.propTypes = {
+    guardarResumen: PropTypes.func.isRequired,
+    guardarCargando: PropTypes.func.isRequired
 }
 
 export default Formulario

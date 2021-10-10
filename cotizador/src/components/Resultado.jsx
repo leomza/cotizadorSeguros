@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import PropTypes from 'prop-types'
 
 //Esta libreria es para darle efectos:
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -39,12 +40,16 @@ const Resultado = ({ cotizacion }) => {
           timeout={{ enter: 500, exit: 500 }}
         >
           <TextoCotizacion>
-            El total es: $ <span> {cotizacion} </span>{' '}
+            El total es: $ <span> {cotizacion} </span>
           </TextoCotizacion>
         </CSSTransition>
       </TransitionGroup>
     </ResultadoCotizacion>
   )
+}
+
+Resultado.propTypes = {
+  cotizacion: PropTypes.number.isRequired
 }
 
 export default Resultado

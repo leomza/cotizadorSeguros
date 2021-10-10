@@ -27,6 +27,9 @@ function App() {
     }
   })
 
+  //Esto es para mostrar el Spinning cuando cargue los datos:
+  const [cargando, guardarCargando] = useState(false)
+
   //Extraigo los datos:
   const { datos, cotizacion } = resumen;
 
@@ -34,10 +37,10 @@ function App() {
     <Contenedor>
       <Header titulo="Cotizador de Seguros" />
       <ContenedorFormulario>
-        <Formulario guardarResumen={guardarResumen} />
-        <Spinner />
+        <Formulario guardarResumen={guardarResumen} guardarCargando={guardarCargando} />
+        {cargando ? <Spinner /> : null}
         <Resumen datos={datos} />
-        <Resultado cotizacion={cotizacion} />
+        {!cargando ? <Resultado cotizacion={cotizacion} /> : null}
       </ContenedorFormulario>
     </Contenedor>
   );

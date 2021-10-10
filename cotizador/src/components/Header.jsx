@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import PropTypes from 'prop-types'
 
 //Styled components: Permite mezclar CSS con JAVSCRIPT en el mismo documento. Ademas los componentes se ocultan o se muestran de acuerdo al componente cargado (mejor performance)
 //La libreria se instala como: npm i @emotion/styled @emotion/react
@@ -25,6 +26,10 @@ const Header = ({ titulo }) => {
       <TextoHeader>{titulo}</TextoHeader>
     </ContenedorHeader>
   )
+}
+
+Header.propTypes = {
+  titulo: PropTypes.string.isRequired
 }
 
 export default Header
